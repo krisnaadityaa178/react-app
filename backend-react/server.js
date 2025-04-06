@@ -37,33 +37,6 @@ const authenticateToken = (req, res, next) => {
     });
 };
 
-import fs from 'fs';
-import path from 'path';
-
-
-// DELETE /tasks/:id
-app.delete('/tasks/:id', async (req, res) => {
-    const { id } = req.params;
-
-    try {
-    const result = await db.query('SELECT file_url FROM tasks WHERE id = $1', [id]);
-    const filePath = result.rows[0]?.file_url;
-
-    if (filePath) {
-      // Hapus file dari folder
-        fs.unlink(path.join(__dirname, 'uploads', path.basename(filePath)), (err) => {
-        if (err) console.error('Gagal hapus file:', err);
-        });
-    }
-
-    await db.query('DELETE FROM tasks WHERE id = $1', [id]);
-    res.json({ message: 'Tugas dan file berhasil dihapus!' });
-    } catch (err) {
-    res.status(500).json({ error: 'Gagal hapus tugas' });
-    }
-});
-
-
 // File Upload
 const uploadFolder = "uploads/";
 if (!fs.existsSync(uploadFolder)) {
@@ -124,21 +97,34 @@ app.get("/api/todos/:id/files", authenticateToken, async (req, res) => {
     }
 });
 
-
-// Hapus File Upload Endpoint
-app.delete("/api/files/:id", authenticateToken, async (req, res) => {
+app.delete('/api/todos/:id', authenticateToken, async (req, res) => {
     const { id } = req.params;
+
     try {
-        const fileRes = await pool.query("SELECT file_url FROM files WHERE id = $1", [id]);
-        const filePath = fileRes.rows[0]?.file_url;
-        if (filePath) {
-            fs.unlinkSync(path.join(__dirname, filePath));
+        const result = await pool.query('SELECT file_url FROM todos WHERE id = $1', [id]);
+        const fileUrl = result.rows[0]?.file_url;
+
+        if (fileUrl) {
+            const fileName = path.basename(fileUrl);
+            const filePath = path.join(__dirname, 'uploads', fileName);
+            
+            console.log("🔍 Path file:", filePath);
+            console.log("⛏️ File ada?", fs.existsSync(filePath));
+
+            if (fs.existsSync(filePath)) {
+                fs.unlinkSync(filePath);
+                console.log('✅ File berhasil dihapus:', filePath);
+            } else {
+                console.warn('⚠️ File tidak ditemukan:', filePath);
+            }
         }
-        await pool.query("DELETE FROM files WHERE id = $1", [id]);
-        res.json({ message: "File berhasil dihapus" });
+
+        await pool.query('DELETE FROM todos WHERE id = $1', [id]);
+
+        res.json({ message: 'Todo dan file berhasil dihapus' });
     } catch (err) {
-        console.error("❌ Gagal hapus file:", err);
-        res.status(500).json({ message: "Server error saat hapus file" });
+        console.error('❌ Gagal menghapus todo/file:', err.message);
+        res.status(500).json({ error: 'Gagal menghapus todo/file' });
     }
 });
 
