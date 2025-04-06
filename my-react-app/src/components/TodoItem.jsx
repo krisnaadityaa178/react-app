@@ -68,7 +68,7 @@
             ) : (
             <button
                 onClick={() => setIsEditing(true)}
-                className="bg-yellow-500 text-white px-2 py-1 rounded cursor-pointer"
+                className="bg-yellow-500 text-white px-4 py-1 rounded cursor-pointer"
                 disabled={isLoading}
             >
                 Edit

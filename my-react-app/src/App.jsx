@@ -12,7 +12,6 @@ const App = () => {
   const [todoFiles, setTodoFiles] = useState({}); // ✅ simpan file per todo
   const [isLoading, setIsLoading] = useState(false);
 
-
   const token = localStorage.getItem("token");
 
   const filteredTodos = todos.filter((todo) => {
@@ -291,7 +290,7 @@ const App = () => {
                 />
                 <button
                   onClick={() => handleUpload(todo.id)}
-                  className="ml-2 px-4 py-1 bg-emerald-400 text-white rounded hover:bg-emerald-600 transition"
+                  className="ml-2 px-4 py-1 bg-emerald-400 text-white rounded hover:bg-emerald-600 transition cursor-pointer"
                 >
                   Upload File
                 </button>
