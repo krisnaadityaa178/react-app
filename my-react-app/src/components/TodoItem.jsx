@@ -60,7 +60,7 @@
             {isEditing ? (
             <button
                 onClick={handleUpdate}
-                className="bg-green-500 text-white px-2 py-1 rounded flex items-center gap-1"
+                className="bg-green-500 text-white px-2 py-1 rounded flex items-center gap-1 cursor-pointer"
                 disabled={isLoading}
             >
                 {isLoading ? <FaSpinner className="animate-spin" /> : "Simpan"}
@@ -68,7 +68,7 @@
             ) : (
             <button
                 onClick={() => setIsEditing(true)}
-                className="bg-yellow-500 text-white px-2 py-1 rounded"
+                className="bg-yellow-500 text-white px-2 py-1 rounded cursor-pointer"
                 disabled={isLoading}
             >
                 Edit
@@ -77,7 +77,7 @@
 
             <button
             onClick={handleDelete}
-            className="bg-red-500 text-white px-2 py-1 rounded flex items-center gap-1"
+            className="bg-red-500 text-white px-2 py-1 rounded flex items-center gap-1 cursor-pointer"
             disabled={isLoading}
             >
             {isLoading ? <FaSpinner className="animate-spin" /> : "Hapus"}

@@ -37,6 +37,33 @@ const authenticateToken = (req, res, next) => {
     });
 };
 
+import fs from 'fs';
+import path from 'path';
+
+
+// DELETE /tasks/:id
+app.delete('/tasks/:id', async (req, res) => {
+    const { id } = req.params;
+
+    try {
+    const result = await db.query('SELECT file_url FROM tasks WHERE id = $1', [id]);
+    const filePath = result.rows[0]?.file_url;
+
+    if (filePath) {
+      // Hapus file dari folder
+        fs.unlink(path.join(__dirname, 'uploads', path.basename(filePath)), (err) => {
+        if (err) console.error('Gagal hapus file:', err);
+        });
+    }
+
+    await db.query('DELETE FROM tasks WHERE id = $1', [id]);
+    res.json({ message: 'Tugas dan file berhasil dihapus!' });
+    } catch (err) {
+    res.status(500).json({ error: 'Gagal hapus tugas' });
+    }
+});
+
+
 // File Upload
 const uploadFolder = "uploads/";
 if (!fs.existsSync(uploadFolder)) {
