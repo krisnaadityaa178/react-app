@@ -1,0 +1,89 @@
+    .animated-bg {
+        background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #8e2de2, #4a00e0, #00f2fe);
+        background-size: 600% 600%;
+        animation: gradientShift 12s ease infinite;
+    }
+    
+    @keyframes gradientShift {
+        0% {
+        background-position: 0% 50%;
+        }
+        25% {
+        background-position: 50% 100%;
+        }
+        50% {
+        background-position: 100% 50%;
+        }
+        75% {
+        background-position: 50% 0%;
+        }
+        100% {
+        background-position: 0% 50%;
+        }
+    }
+    
+    .auth-box {
+        background-color: rgba(0, 0, 0, 0.2); /* Lebih transparan */
+        border: none; /* Mampus si border hitam! */
+        border-radius: 1rem;
+        padding: 2rem;
+        box-shadow: 0 0 40px rgba(0, 255, 255, 0.2);
+        backdrop-filter: blur(25px);
+        transition: all 0.3s ease-in-out;
+      }
+      
+      .auth-box h2 {
+        color: white;
+        text-shadow: 0 0 10px;
+      }
+      
+      .auth-box input {
+        background-color: rgba(255, 255, 255, 0.05);
+        border: none;
+        border-radius: 0.5rem;
+        color: #fff; /* Font warna putih cerah */
+        padding: 0.75rem;
+        width: 100%;
+        margin-top: 0.5rem;
+        outline: none;
+        transition: all 0.3s ease;
+        box-shadow: inset 0 0 0 2px rgba(0, 255, 255, 0.3); /* glowing outline */
+      }
+      
+      .auth-box input::placeholder {
+        color: #aaa;
+      }
+      
+      .auth-box input:focus {
+        box-shadow: 0 0 10px white, inset 0 0 0 2px white;
+      }
+      
+      .auth-box button {
+        background: linear-gradient(45deg, #8e2de2, #4a00e0);
+        color: white;
+        padding: 0.75rem;
+        border: none;
+        border-radius: 0.5rem;
+        margin-top: 1rem;
+        font-weight: bold;
+        width: 100%;
+        box-shadow: 0 0 15px rgba(138, 43, 226, 0.6);
+        cursor: pointer;
+        transition: 0.2s ease;
+      }
+      
+      .auth-box button:hover {
+        transform: scale(1.02);
+        box-shadow: 0 0 30px rgba(138, 43, 226, 1);
+      }
+      
+      .auth-box p {
+        color: #ccc;
+      }
+      
+      .auth-box span {
+        color: white;
+        cursor: pointer;
+        text-decoration: underline;
+      }
+      
